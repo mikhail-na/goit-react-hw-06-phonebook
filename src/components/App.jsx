@@ -32,7 +32,7 @@ export const App = () => {
       <Layout title="Contacts">
         <ContactFilter />
         
-        {/* <ContactsList visibleContacts={isVisibleContacts()} /> */}
+        <ContactsList visibleContacts={isVisibleContacts()} />
       </Layout>
     </>
   );
