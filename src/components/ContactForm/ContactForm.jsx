@@ -3,17 +3,16 @@ import { useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import { Form, Input, Label, Button } from './ContactForm.module';
 
-// import { useDispatch, useSelector } from 'react-redux';
-// import { addContact } from 'redux/contactsSlice';
-// import { getContactsState } from 'redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
+import { getContactsState } from 'redux/selectors';
 
 
-export const ContactForm = ({onSubmit}) => {
+export const ContactForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContactsState);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-
-  // const dispatch = useDispatch();
-  // const contacts = useSelector(getContactsState);
 
   const reset = () => {
     setName('');
@@ -37,9 +36,17 @@ export const ContactForm = ({onSubmit}) => {
   const onFormSubmit = e => {
     e.preventDefault();
 
+    const currentName = name;
+    
+    if (contacts.some(({ name }) => name === currentName)) {
+      return alert(`You already have ${(currentName).toUpperCase()} in your contacts! Please try to change the name of the contact!`);
+    }
+		
+
     const contact = newContact(name, number);
-    onSubmit(contact);
+		dispatch(addContact(contact))
     reset();
+
   };
 
   // const onFormSubmit = e => {
