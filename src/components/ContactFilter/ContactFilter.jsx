@@ -1,20 +1,21 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { getFilteredContacts } from 'redux/selectors';
-
 import { setFilterContacts } from 'redux/filterSlice';
 import { Label, Input } from './ContactFilter.module';
+import { getFilteredContacts } from 'redux/selectors';
 
 
 export const ContactFilter = () => {
-  const filter = useSelector(getFilteredContacts);
   const dispatch = useDispatch();
+  const filter = useSelector(getFilteredContacts);
 
   const label = 'Find contacts by name';
 
+  const handleFilterChange = e => {
+    const searchValue = e.target.value;
 
-  //  const handleChangeFilter = ({ currentTarget: { value } }) => {
-  //   dispatch(setFilterContacts(value.toLowerCase().trim()));
-  // };
+    dispatch(setFilterContacts(searchValue));
+  };
+
 
   return (
     <Label>
@@ -24,7 +25,7 @@ export const ContactFilter = () => {
         name="filter"
         placeholder="Enter contact name..."
         value={filter}
-        onChange={(e)=>dispatch(setFilterContacts(e.currentTarget.value))}
+        onChange={handleFilterChange}
       />
     </Label>
   );

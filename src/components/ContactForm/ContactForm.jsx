@@ -1,11 +1,14 @@
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import { Form, Input, Label, Button } from './ContactForm.module';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/contactsSlice';
+import { getContactsState } from 'redux/selectors';
 
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
+  const contacts = useSelector(getContactsState);
 
   const onFormSubmit = e => {
     e.preventDefault();
@@ -17,6 +20,7 @@ export const ContactForm = () => {
       name: e.target.elements.name.value,
       number: e.target.elements.number.value,
     };
+    
     dispatch(addContact(newContact));
 
     form.reset();
@@ -33,9 +37,8 @@ export const ContactForm = () => {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
-          placeholder='Enter Name...'
-          // value={contacts.name}
-         
+          value={contacts.name}
+          placeholder='Enter Name...'      
         />
       </Label>
       <Label>
@@ -46,17 +49,12 @@ export const ContactForm = () => {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
+          value={contacts.number}
           placeholder="Enter number..."
-          // value={contacts.number}
-          
         />
       </Label>
       <Button
-        type="submit"
-      // disabled={!contacts.name || !contacts.number}
-      >
-        Add
-      </Button>
+        type="submit">Add</Button>
     </Form>
   );
 };

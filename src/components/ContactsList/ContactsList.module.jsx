@@ -6,29 +6,26 @@ margin: 0;
 `;
 
 
-export const Item = styled.li`
-&:not(:last-child){
-    margin-bottom: 10px;
-}
+export const ContactItem = styled.li`
 display: flex;
 align-items: center;
-justify-content: space-between;
-font-size: 24px;
-`
+`;
 
-export const Contact = styled.p`
-margin-right: 10px;
-font-size: 20px;
+export const ContactName = styled.p`
+margin: 0;
+font-weight: 500;
+`;
 
-`
+export const ContactNumber = styled.span`
+margin-left: 8px;
+`;
 
 export const Button = styled.button`
-padding: 0 5px 5px 5px;
-font-size: 30px;
-width: 40px;
-background-color: inherit;
-border: 1px solid;
-border-radius: 5px;
-color: black);
-`
+margin: 8px 8px 8px auto;
+// margin-left:auto;
+padding: 8px 16px;
+border: none;
+border-radius: 7px;
+cursor: pointer;
+`;
 

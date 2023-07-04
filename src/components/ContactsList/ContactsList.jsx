@@ -1,34 +1,28 @@
-import { List, Item, Contact, Button} from './ContactsList.module';
+import { List, ContactItem, ContactName, ContactNumber, Button} from './ContactsList.module';
 import { PropTypes } from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeContact } from 'redux/contactsSlice';
-import { getContactsState, getFilteredContacts } from 'redux/selectors';
+import { getContactsState } from 'redux/selectors';
 
 export const ContactsList = () => {
   const dispatch = useDispatch();
-    const contacts = useSelector(getContactsState);
-  const filter = useSelector(getFilteredContacts);
-  
-  const visibleContacts = [
-    ...contacts.filter(contact => contact.name.toLowerCase().includes(filter)),
-  ];
-  
+  const contacts = useSelector(getContactsState);
+
   return (
     <List>
-      {visibleContacts &&
-        visibleContacts.map(({ id, name, number }) => {
+      {contacts.map(({ id, name, number }) => {
           return (
-            <Item key={id}>
-              <Contact>
-                {name}: {number}
-              </Contact>
+            <ContactItem key={id}>
+              <ContactName>
+                {name}: <ContactNumber>{number}</ContactNumber>
+              </ContactName>
               <Button
                 type="button"
                 onClick={() => dispatch(removeContact(id))}
               >
                 x
               </Button>
-            </Item>
+            </ContactItem>
           );
         })}
     </List>
