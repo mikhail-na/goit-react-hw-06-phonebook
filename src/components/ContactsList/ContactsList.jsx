@@ -1,6 +1,7 @@
-import { List, ContactItem, ContactName, ContactNumber, Button} from './ContactsList.module';
 import { PropTypes } from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { List, ContactItem, ContactName, ContactNumber, Button} from './ContactsList.module';
+
 import { removeContact } from 'redux/contactsSlice';
 import { getContactsState } from 'redux/selectors';
 
