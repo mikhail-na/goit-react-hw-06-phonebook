@@ -14,12 +14,17 @@ export const ContactForm = () => {
     e.preventDefault();
      
     const form = e.target;
+    const currentName = e.target.elements.name.value;
 
     const newContact = {
       id: nanoid(),
       name: e.target.elements.name.value,
       number: e.target.elements.number.value,
     };
+
+    if (contacts.some(({ name }) => name === currentName)) {
+      return alert(`You already have ${(currentName).toUpperCase()} in your contacts! Please try to change the name of the contact!`);
+    }
     
     dispatch(addContact(newContact));
 
